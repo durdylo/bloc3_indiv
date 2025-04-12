@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MurImageService")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ada9604e772a425d608bdd8f6d0a229483433b13")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e7ac70cc331ae0f7d2f9f7c6683b5dbf5ce3b516")]
 [assembly: System.Reflection.AssemblyProductAttribute("MurImageService")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MurImageService")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

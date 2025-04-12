@@ -19,7 +19,7 @@ namespace MurImageService.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Position>>> GetPositions()
         {
-            return await _context.Positions.Include(p => p.MurImage).ToListAsync();
+            return await _context.Positions.Include(p => p.MurImage).OrderBy(p => p.Id).ToListAsync();
         }
 
         // GET: api/Positions/5

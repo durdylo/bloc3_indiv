@@ -27,7 +27,7 @@ namespace CameraService.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Camera>>> GetCameras()
         {
-            return await _context.Cameras.ToListAsync();
+            return await _context.Cameras.OrderBy(c => c.Code).ToListAsync();
         }
 
         // GET: api/Cameras/5
