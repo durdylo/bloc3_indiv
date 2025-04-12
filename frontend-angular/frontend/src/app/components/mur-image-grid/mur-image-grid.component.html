@@ -1,94 +1,105 @@
 <div *ngIf="loading" class="text-center">
-    <div class="spinner-border" role="status">
-      <span class="visually-hidden">Chargement...</span>
-    <!-- Modal pour ajouter une caméra -->
-  <div class="modal fade" id="addCameraModal" tabindex="-1" aria-labelledby="addCameraModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="addCameraModalLabel">Ajouter une caméra à la position</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <div *ngIf="availableCameras.length === 0" class="alert alert-warning">
-            Aucune caméra disponible. Veuillez activer des caméras dans la liste des caméras.
-          </div>
-          <div *ngIf="availableCameras.length > 0">
-            <p>Sélectionnez une caméra à ajouter :</p>
-            <div class="list-group">
-              <button *ngFor="let camera of availableCameras" type="button"
-                      class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
-                      (click)="selectedCamera = camera" 
-                      [class.active]="selectedCamera && selectedCamera.id === camera.id">
-                <div>
-                  <i class="bi bi-camera-video-fill me-2"></i>
-                  <span class="badge bg-secondary me-2">{{ camera.code }}</span>
-                  {{ camera.nom }}
+  <div class="spinner-border" role="status">
+    <span class="visually-hidden">Chargement...</span>
+  </div>
+</div>
+
+<div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+<div *ngIf="!loading && !error">
+  <div *ngFor="let murImage of murImages" class="mb-5">
+    <div class="card shadow-sm">
+      <div class="card-header bg-info text-white d-flex justify-content-between align-items-center">
+        <h3 class="mb-0">
+          <i class="bi bi-grid-3x3-gap me-2"></i>
+          {{ murImage.nom }}
+        </h3>
+        <span class="badge bg-light text-info">
+          {{ getActivePositionsCount(murImage.positions) }} / {{ murImage.positions.length }} actives
+        </span>
+      </div>
+      <div class="card-body">
+        <div class="mur-grid">
+          <div class="row g-2">
+            <ng-container *ngFor="let row of getPositionGrid(murImage.positions)">
+              <div class="col-4" *ngFor="let position of row">
+                <div class="position-box" [ngClass]="{
+                  'position-empty': !position?.codeCamera,
+                  'position-active': position?.codeCamera && isCameraDisplayable(position?.codeCamera) && position?.estActif,
+                  'position-inactive': (position?.codeCamera && !isCameraDisplayable(position?.codeCamera)) || (position?.codeCamera && !position?.estActif)
+                }">
+                  <div *ngIf="position?.codeCamera" class="position-content">
+                    <div class="camera-icon">
+                      <i class="bi bi-camera-video-fill" 
+                         [ngClass]="{'text-success': isCameraDisplayable(position?.codeCamera) && position?.estActif, 
+                                    'text-secondary': !isCameraDisplayable(position?.codeCamera) || !position?.estActif}"></i>
+                    </div>
+                    <div class="camera-code">{{ position?.codeCamera }}</div>
+                    <div class="camera-status" [ngClass]="{
+                      'text-success': isCameraDisplayable(position?.codeCamera) && position?.estActif,
+                      'text-danger': !isCameraDisplayable(position?.codeCamera) || !position?.estActif
+                    }">
+                      {{ (isCameraDisplayable(position?.codeCamera) && position?.estActif) ? 'Active' : 'Inactive' }}
+                    </div>
+                    <div class="camera-name">{{ getCameraNameByCode(position?.codeCamera) }}</div>
+                    <button class="btn btn-sm btn-danger mt-1" (click)="position && removeCamera(position)">
+                      <i class="bi bi-trash"></i> Retirer
+                    </button>
+                  </div>
+                
+                  <div *ngIf="!position?.codeCamera" class="position-content">
+                    <i class="bi bi-plus-circle-dotted text-muted" style="font-size: 2rem; cursor: pointer;" 
+                       (click)="position && showAddCameraModal(position)"></i>
+                    <div class="text-muted">Position disponible</div>
+                    <button class="btn btn-sm btn-primary mt-1" (click)="position && showAddCameraModal(position)">
+                      <i class="bi bi-plus-circle"></i> Ajouter caméra
+                    </button>
+                  </div>
                 </div>
-              </button>
-            </div>
+              </div>
+            </ng-container>
           </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-          <button type="button" class="btn btn-primary" (click)="confirmAddCamera()" 
-                  [disabled]="!selectedCamera" data-bs-dismiss="modal">
-            Ajouter
-          </button>
         </div>
       </div>
     </div>
   </div>
-  </div>
-  </div>
-  
-  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
-  
-  <div *ngIf="!loading && !error">
-    <div *ngFor="let murImage of murImages" class="mb-5">
-      <div class="card shadow-sm">
-        <div class="card-header bg-info text-white d-flex justify-content-between align-items-center">
-          <h3 class="mb-0">
-            <i class="bi bi-grid-3x3-gap me-2"></i>
-            {{ murImage.nom }}
-          </h3>
-          <span class="badge bg-light text-info">
-            {{ getActivePositionsCount(murImage.positions) }} / {{ murImage.positions.length }} actives
-          </span>
+</div>
+
+<!-- Modal pour ajouter une caméra -->
+<div class="modal fade" id="addCameraModal" tabindex="-1" aria-labelledby="addCameraModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addCameraModalLabel">Ajouter une caméra à la position</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="availableCameras.length === 0" class="alert alert-warning">
+          Aucune caméra disponible. Veuillez activer des caméras dans la liste des caméras.
         </div>
-        <div class="card-body">
-          <div class="mur-grid">
-            <div class="row g-2">
-              <ng-container *ngFor="let row of getPositionGrid(murImage.positions)">
-                <div class="col-4" *ngFor="let position of row">
-                  <div class="position-box" [ngClass]="{
-                    'position-empty': !position?.codeCamera,
-                    'position-active': position?.codeCamera && isCameraDisplayable(position?.codeCamera) && position?.estActif,
-                    'position-inactive': (position?.codeCamera && !isCameraDisplayable(position?.codeCamera)) || (position?.codeCamera && !position?.estActif)
-                  }">
-                    <div *ngIf="position?.codeCamera" class="position-content">
-                      <div class="camera-icon">
-                        <i class="bi bi-camera-video-fill" 
-                           [ngClass]="{'text-success': isCameraDisplayable(position?.codeCamera) && position?.estActif, 
-                                      'text-secondary': !isCameraDisplayable(position?.codeCamera) || !position?.estActif}"></i>
-                      </div>
-                      <div class="camera-code">{{ position?.codeCamera }}</div>
-                      <div class="camera-status" [ngClass]="{
-                        'text-success': isCameraDisplayable(position?.codeCamera) && position?.estActif,
-                        'text-danger': !isCameraDisplayable(position?.codeCamera) || !position?.estActif
-                      }">
-                        {{ (isCameraDisplayable(position?.codeCamera) && position?.estActif) ? 'Active' : 'Inactive' }}
-                      </div>
-                      <div class="camera-name">{{ getCameraNameByCode(position?.codeCamera) }}</div>
-                      <button class="btn btn-sm btn-danger mt-1" (click)="position && removeCamera(position)">
-                        <i class="bi bi-trash"></i> Retirer
-                      </button>
-                    </div>
-                  
-                    <div *ngIf="!position?.codeCamera" class="position-content">
-                      <i class="bi bi-plus-circle-dotted text-muted" style="font-size: 2rem; cursor: pointer;" 
-                         (click)="position && showAddCameraModal(position)"></i>
-                      <div class="text-muted">Position disponible</div>
-                      <button class="btn btn-sm btn-primary mt-1" (click)="position && showAddCameraModal(position)">
-                        <i class="bi bi-plus-circle"></i> Ajouter caméra
-                      </button>
+        <div *ngIf="availableCameras.length > 0">
+          <p>Sélectionnez une caméra à ajouter :</p>
+          <div class="list-group">
+            <button *ngFor="let camera of availableCameras" type="button"
+                    class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+                    (click)="selectedCamera = camera" 
+                    [class.active]="selectedCamera && selectedCamera.id === camera.id">
+              <div>
+                <i class="bi bi-camera-video-fill me-2"></i>
+                <span class="badge bg-secondary me-2">{{ camera.code }}</span>
+                {{ camera.nom }}
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+        <button type="button" class="btn btn-primary" (click)="confirmAddCamera()" 
+                [disabled]="!selectedCamera" data-bs-dismiss="modal">
+          Ajouter
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

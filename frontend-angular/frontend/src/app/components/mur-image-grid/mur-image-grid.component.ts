@@ -165,23 +165,40 @@ export class MurImageGridComponent implements OnInit, OnDestroy {
     });
   }
   
-  // Méthode pour afficher le modal d'ajout de caméra
-  showAddCameraModal(position: Position): void {
-    if (!position) return;
-    
-    this.selectedPosition = position;
-    this.selectedCamera = null;
-    
-    // Mettre à jour la liste des caméras disponibles
-    this.updateAvailableCameras();
-    
-    // Initialiser et afficher le modal Bootstrap
-    const modalElement = document.getElementById('addCameraModal');
-    if (modalElement) {
-      this.modalInstance = new bootstrap.Modal(modalElement);
-      this.modalInstance.show();
+
+// Méthode pour afficher le modal d'ajout de caméra
+showAddCameraModal(position: Position): void {
+  if (!position) return;
+  
+  this.selectedPosition = position;
+  this.selectedCamera = null;
+  
+  // Mettre à jour la liste des caméras disponibles
+  this.updateAvailableCameras();
+  
+  // Initialiser et afficher le modal Bootstrap
+  const modalElement = document.getElementById('addCameraModal');
+  if (modalElement) {
+    // S'assurer que Bootstrap est disponible
+    if (typeof bootstrap !== 'undefined') {
+      // Vérifier si une instance existe déjà
+      let modal = bootstrap.Modal.getInstance(modalElement);
+      
+      // Si aucune instance n'existe, en créer une nouvelle
+      if (!modal) {
+        modal = new bootstrap.Modal(modalElement);
+      }
+      
+      // Afficher le modal
+      modal.show();
+      this.modalInstance = modal;
+    } else {
+      console.error('Bootstrap JS n\'est pas disponible dans le contexte global');
     }
+  } else {
+    console.error('Élément modal non trouvé dans le DOM');
   }
+}
   
   // Méthode pour ajouter une caméra à une position
   confirmAddCamera(): void {
