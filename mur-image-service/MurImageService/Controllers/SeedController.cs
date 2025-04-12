@@ -36,29 +36,29 @@ namespace MurImageService.Controllers
             // Positions pour le premier mur
             var positionsMur1 = new List<Position>
             {
-                new Position { IdMurImage = murImage1.Id, CodeCamera = "001" },
-                new Position { IdMurImage = murImage1.Id, CodeCamera = "002" },
-                new Position { IdMurImage = murImage1.Id, CodeCamera = "003" },
-                new Position { IdMurImage = murImage1.Id, CodeCamera = "005" },
-                new Position { IdMurImage = murImage1.Id, CodeCamera = "006" },
-                new Position { IdMurImage = murImage1.Id, CodeCamera = "007" },
-                new Position { IdMurImage = murImage1.Id, CodeCamera = "009" },
-                new Position { IdMurImage = murImage1.Id, CodeCamera = "010" },
-                new Position { IdMurImage = murImage1.Id, CodeCamera = null }
+                new Position { IdMurImage = murImage1.Id, CodeCamera = "001", EstActif = true },
+                new Position { IdMurImage = murImage1.Id, CodeCamera = "002", EstActif = true },
+                new Position { IdMurImage = murImage1.Id, CodeCamera = "003", EstActif = true },
+                new Position { IdMurImage = murImage1.Id, CodeCamera = "005", EstActif = true },
+                new Position { IdMurImage = murImage1.Id, CodeCamera = "006", EstActif = true },
+                new Position { IdMurImage = murImage1.Id, CodeCamera = "007", EstActif = true },
+                new Position { IdMurImage = murImage1.Id, CodeCamera = "009", EstActif = true },
+                new Position { IdMurImage = murImage1.Id, CodeCamera = "010", EstActif = false },
+                new Position { IdMurImage = murImage1.Id, CodeCamera = null, EstActif = true }
             };
 
             // Positions pour le deuxième mur
             var positionsMur2 = new List<Position>
             {
-                new Position { IdMurImage = murImage2.Id, CodeCamera = "016" },
-                new Position { IdMurImage = murImage2.Id, CodeCamera = "017" },
-                new Position { IdMurImage = murImage2.Id, CodeCamera = "018" },
-                new Position { IdMurImage = murImage2.Id, CodeCamera = "019" },
-                new Position { IdMurImage = murImage2.Id, CodeCamera = "004" },
-                new Position { IdMurImage = murImage2.Id, CodeCamera = "014" },
-                new Position { IdMurImage = murImage2.Id, CodeCamera = "015" },
-                new Position { IdMurImage = murImage2.Id, CodeCamera = null },
-                new Position { IdMurImage = murImage2.Id, CodeCamera = null }
+                new Position { IdMurImage = murImage2.Id, CodeCamera = "016", EstActif = true },
+                new Position { IdMurImage = murImage2.Id, CodeCamera = "017", EstActif = true },
+                new Position { IdMurImage = murImage2.Id, CodeCamera = "018", EstActif = true },
+                new Position { IdMurImage = murImage2.Id, CodeCamera = "019", EstActif = true },
+                new Position { IdMurImage = murImage2.Id, CodeCamera = "004", EstActif = true },
+                new Position { IdMurImage = murImage2.Id, CodeCamera = "014", EstActif = true },
+                new Position { IdMurImage = murImage2.Id, CodeCamera = "015", EstActif = true },
+                new Position { IdMurImage = murImage2.Id, CodeCamera = null, EstActif = true },
+                new Position { IdMurImage = murImage2.Id, CodeCamera = null, EstActif = true }
             };
 
             // Ajouter toutes les positions

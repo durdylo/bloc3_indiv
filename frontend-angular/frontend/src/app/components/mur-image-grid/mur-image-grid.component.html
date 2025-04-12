@@ -63,27 +63,28 @@
                 <div class="col-4" *ngFor="let position of row">
                   <div class="position-box" [ngClass]="{
                     'position-empty': !position?.codeCamera,
-                    'position-active': position?.codeCamera && isCameraDisplayable(position?.codeCamera),
-                    'position-inactive': position?.codeCamera && !isCameraDisplayable(position?.codeCamera)
+                    'position-active': position?.codeCamera && isCameraDisplayable(position?.codeCamera) && position?.estActif,
+                    'position-inactive': (position?.codeCamera && !isCameraDisplayable(position?.codeCamera)) || (position?.codeCamera && !position?.estActif)
                   }">
                     <div *ngIf="position?.codeCamera" class="position-content">
                       <div class="camera-icon">
                         <i class="bi bi-camera-video-fill" 
-                           [ngClass]="{'text-success': isCameraDisplayable(position?.codeCamera), 
-                                      'text-secondary': !isCameraDisplayable(position?.codeCamera)}"></i>
+                           [ngClass]="{'text-success': isCameraDisplayable(position?.codeCamera) && position?.estActif, 
+                                      'text-secondary': !isCameraDisplayable(position?.codeCamera) || !position?.estActif}"></i>
                       </div>
                       <div class="camera-code">{{ position?.codeCamera }}</div>
                       <div class="camera-status" [ngClass]="{
-                        'text-success': isCameraDisplayable(position?.codeCamera),
-                        'text-danger': !isCameraDisplayable(position?.codeCamera)
+                        'text-success': isCameraDisplayable(position?.codeCamera) && position?.estActif,
+                        'text-danger': !isCameraDisplayable(position?.codeCamera) || !position?.estActif
                       }">
-                        {{ isCameraDisplayable(position?.codeCamera) ? 'Active' : 'Inactive' }}
+                        {{ (isCameraDisplayable(position?.codeCamera) && position?.estActif) ? 'Active' : 'Inactive' }}
                       </div>
                       <div class="camera-name">{{ getCameraNameByCode(position?.codeCamera) }}</div>
                       <button class="btn btn-sm btn-danger mt-1" (click)="position && removeCamera(position)">
                         <i class="bi bi-trash"></i> Retirer
                       </button>
                     </div>
+                  
                     <div *ngIf="!position?.codeCamera" class="position-content">
                       <i class="bi bi-plus-circle-dotted text-muted" style="font-size: 2rem; cursor: pointer;" 
                          (click)="position && showAddCameraModal(position)"></i>

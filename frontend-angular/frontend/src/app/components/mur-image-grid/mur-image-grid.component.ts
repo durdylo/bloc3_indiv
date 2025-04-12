@@ -17,7 +17,8 @@ export class MurImageGridComponent implements OnInit, OnDestroy {
   loading = true;
   error = '';
   private cameraSubscription: Subscription | null = null;
-  
+  private refreshTimer: any;
+
   // Pour le modal
   selectedPosition: Position | null = null;
   selectedCamera: Camera | null = null;
@@ -39,12 +40,33 @@ export class MurImageGridComponent implements OnInit, OnDestroy {
       // Recharger les caméras disponibles si nécessaire
       this.updateAvailableCameras();
     });
+    
+    // Configurer un rafraîchissement périodique pour détecter les mises à jour
+    this.refreshTimer = setInterval(() => {
+      this.refreshData();
+    }, 5000); // Toutes les 5 secondes
+  }
+  
+  refreshData(): void {
+    this.murImageService.getMurImages().subscribe({
+      next: (data) => {
+        this.murImages = data;
+      },
+      error: (err) => {
+        console.error('Erreur lors du rafraîchissement des données', err);
+      }
+    });
   }
   
   ngOnDestroy(): void {
     // Se désabonner pour éviter les fuites de mémoire
     if (this.cameraSubscription) {
       this.cameraSubscription.unsubscribe();
+    }
+    
+    // Arrêter le timer de rafraîchissement
+    if (this.refreshTimer) {
+      clearInterval(this.refreshTimer);
     }
   }
 
@@ -116,7 +138,11 @@ export class MurImageGridComponent implements OnInit, OnDestroy {
   
   // Méthode pour calculer le nombre de positions actives
   getActivePositionsCount(positions: Position[]): number {
-    return positions.filter(p => p.codeCamera && this.isCameraDisplayable(p.codeCamera)).length;
+    return positions.filter(p => 
+      p.codeCamera && 
+      this.isCameraDisplayable(p.codeCamera) && 
+      p.estActif
+    ).length;
   }
   
   // Méthode pour supprimer une caméra d'une position
@@ -164,13 +190,17 @@ export class MurImageGridComponent implements OnInit, OnDestroy {
     // Mettre à jour la position avec la nouvelle caméra
     const updatedPosition: Position = {
       ...this.selectedPosition,
-      codeCamera: this.selectedCamera.code
+      codeCamera: this.selectedCamera.code,
+      estActif: true // Initialisé à true lors de l'ajout
     };
     
     this.murImageService.updatePosition(updatedPosition).subscribe({
       next: () => {
         // Mettre à jour localement
-        this.selectedPosition!.codeCamera = this.selectedCamera!.code;
+        if (this.selectedPosition) {
+          this.selectedPosition.codeCamera = this.selectedCamera!.code;
+          this.selectedPosition.estActif = true;
+        }
         
         // Réinitialiser les sélections
         this.selectedPosition = null;

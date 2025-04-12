@@ -24,6 +24,7 @@ namespace MurImageService.Models
             modelBuilder.Entity<Position>().Property(p => p.Id).HasColumnName("id");
             modelBuilder.Entity<Position>().Property(p => p.IdMurImage).HasColumnName("id_murimage");
             modelBuilder.Entity<Position>().Property(p => p.CodeCamera).HasColumnName("code_camera").IsRequired(false);
+            modelBuilder.Entity<Position>().Property(p => p.EstActif).HasColumnName("est_actif").HasDefaultValue(true);
             
             // Relation entre MurImage et Position
             modelBuilder.Entity<Position>()

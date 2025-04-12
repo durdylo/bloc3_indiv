@@ -12,9 +12,11 @@ namespace MurImageService.Models
         [ForeignKey("MurImage")]
         public int IdMurImage { get; set; }
         
-        public string CodeCamera { get; set; }
+        public string? CodeCamera { get; set; }
+        
+        public bool EstActif { get; set; } = true;
         
         [JsonIgnore]
-        public MurImage MurImage { get; set; }
+        public MurImage? MurImage { get; set; }
     }
 }

@@ -119,9 +119,20 @@ public class RabbitMQConsumerService : BackgroundService
 
             _logger.LogInformation($"Positions trouvées pour la caméra {message.CameraCode}: {positions.Count}");
             
+            // Mettre à jour l'état EstActif de chaque position selon l'état de la caméra
+            bool positionsUpdated = false;
             foreach (var position in positions)
             {
-                _logger.LogInformation($"Position {position.Id} du mur d'image {position.IdMurImage} impactée par le changement");
+                position.EstActif = message.EstAfficher;
+                _logger.LogInformation($"Position {position.Id} du mur d'image {position.IdMurImage} mise à jour: EstActif = {position.EstActif}");
+                positionsUpdated = true;
+            }
+            
+            if (positionsUpdated)
+            {
+                // Sauvegarder les changements dans la base de données
+                await dbContext.SaveChangesAsync();
+                _logger.LogInformation($"Modifications enregistrées pour {positions.Count} positions");
             }
         }
         catch (Exception ex)

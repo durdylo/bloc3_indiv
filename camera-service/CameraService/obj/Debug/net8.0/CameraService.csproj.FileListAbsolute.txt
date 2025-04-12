@@ -135,3 +135,4 @@
 /Users/loic/Documents/MAALSI/Poc_indiv/microservices-app/camera-service/CameraService/obj/Debug/net8.0/ref/CameraService.dll
 /Users/loic/Documents/MAALSI/Poc_indiv/microservices-app/camera-service/CameraService/bin/Debug/net8.0/EasyNetQ.dll
 /Users/loic/Documents/MAALSI/Poc_indiv/microservices-app/camera-service/CameraService/bin/Debug/net8.0/RabbitMQ.Client.dll
+/Users/loic/Documents/MAALSI/Poc_indiv/microservices-app/camera-service/CameraService/obj/Debug/net8.0/CameraService.sourcelink.json

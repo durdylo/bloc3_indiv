@@ -12,6 +12,7 @@ export interface Position {
   id: number;
   idMurImage: number;
   codeCamera: string | null;
+  estActif: boolean;
 }
 
 @Injectable({
