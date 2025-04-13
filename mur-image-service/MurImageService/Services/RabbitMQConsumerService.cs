@@ -37,7 +37,7 @@ public class RabbitMQConsumerService : BackgroundService
         {
             var factory = new ConnectionFactory
             {
-                HostName = _configuration["RabbitMQ:HostName"] ?? "localhost",
+                HostName = _configuration["RabbitMQ:Host"] ?? "localhost",
                 Port = int.Parse(_configuration["RabbitMQ:Port"] ?? "5672"),
                 UserName = _configuration["RabbitMQ:UserName"] ?? "guest",
                 Password = _configuration["RabbitMQ:Password"] ?? "guest"

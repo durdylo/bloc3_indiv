@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject, tap } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 export interface MurImage {
   id: number;
@@ -19,9 +20,9 @@ export interface Position {
   providedIn: 'root'
 })
 export class MurImageService {
-  private apiUrlMurImages = 'http://localhost:5001/api/murimages'; // Ajustez le port selon votre config
-  private apiUrlPositions = 'http://localhost:5001/api/positions'; // Ajustez le port selon votre config
-  
+  private murService =   environment.murImageServiceUrl
+  private apiUrlMurImages = this.murService + '/api/murimages/'; // Ajustez le port selon votre config
+  private apiUrlPositions = this.murService + '/api/positions/'; // Ajustez le port selon votre config
   // Sujet pour signaler les mises à jour de positions
   private positionUpdatedSource = new Subject<Position>();
   positionUpdated$ = this.positionUpdatedSource.asObservable();
@@ -30,6 +31,7 @@ export class MurImageService {
 
   // MurImage methods
   getMurImages(): Observable<MurImage[]> {
+    console.log("url", this.apiUrlMurImages);
     return this.http.get<MurImage[]>(this.apiUrlMurImages);
   }
 

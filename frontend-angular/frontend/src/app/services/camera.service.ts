@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject, tap } from 'rxjs';
-
+import { environment } from 'src/environments/environment';
 export interface Camera {
   id: number;
   nom: string;
@@ -13,8 +13,8 @@ export interface Camera {
   providedIn: 'root'
 })
 export class CameraService {
-  private apiUrl = 'http://localhost:5000/api/cameras'; // Ajustez le port selon votre config
-  
+  //private apiUrl = 'http://localhost:5000/api/cameras'; // Ajustez le port selon votre config
+  private apiUrl = environment.cameraServiceUrl + '/api/cameras/';
   // Sujet pour signaler les mises à jour de caméras
   private cameraUpdatedSource = new Subject<Camera>();
   cameraUpdated$ = this.cameraUpdatedSource.asObservable();
@@ -26,6 +26,7 @@ export class CameraService {
   }
 
   getCamera(id: number): Observable<Camera> {
+    console.log("url", this.apiUrl);
     return this.http.get<Camera>(`${this.apiUrl}/${id}`);
   }
 

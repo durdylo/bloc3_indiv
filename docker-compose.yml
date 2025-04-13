@@ -1,0 +1,94 @@
+version: '3.8'
+
+services:
+  # Base de données PostgreSQL
+  postgres:
+    image: postgres:14
+    container_name: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_MULTIPLE_DATABASES=camera_db,mur_image_db
+    volumes:
+      - ./init-multiple-dbs.sh:/docker-entrypoint-initdb.d/init-multiple-dbs.sh
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - camera-network
+
+  # RabbitMQ
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - camera-network
+
+  # CameraService
+  camera-service:
+    build:
+      context: ./camera-service/CameraService
+      dockerfile: Dockerfile
+    container_name: camera-service
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+    ports:
+      - "5002:5002"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    networks:
+      - camera-network
+
+  # MurImageService
+  mur-image-service:
+    build:
+      context: ./mur-image-service/MurImageService
+      dockerfile: Dockerfile
+    container_name: mur-image-service
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+    ports:
+      - "5001:5001"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    networks:
+      - camera-network
+  # Frontend Angular
+  frontend:
+    build:
+      context: ./frontend-angular
+      dockerfile: Dockerfile
+    container_name: frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - camera-service
+      - mur-image-service
+    networks:
+      - camera-network
+
+networks:
+  camera-network:
+    driver: bridge
+
+volumes:
+  postgres-data:
+  rabbitmq-data:

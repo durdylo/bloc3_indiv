@@ -1,6 +1,0 @@
-@MurImageService_HostAddress = http://localhost:5139
-
-GET {{MurImageService_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
