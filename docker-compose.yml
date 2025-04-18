@@ -46,6 +46,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Production
     ports:
       - "5002:5002"
+    image : ${REPO_ADRESSE}poc-cameras
     depends_on:
       postgres:
         condition: service_healthy
@@ -64,6 +65,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Production
     ports:
       - "5001:5001"
+    image : ${REPO_ADRESSE}poc-murimages
     depends_on:
       postgres:
         condition: service_healthy
@@ -79,6 +81,7 @@ services:
     container_name: frontend
     ports:
       - "80:80"
+    image : ${REPO_ADRESSE}poc-frontend
     depends_on:
       - camera-service
       - mur-image-service
