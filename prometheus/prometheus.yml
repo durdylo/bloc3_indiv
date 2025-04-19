@@ -1,0 +1,31 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+# Configuration des règles d'alerte
+rule_files:
+  - "alert-rules.yml"
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  - job_name: 'camera-service'
+    metrics_path: /metrics
+    static_configs:
+      - targets: ['camera-service:5002']
+
+  - job_name: 'mur-image-service'
+    metrics_path: /metrics
+    static_configs:
+      - targets: ['mur-image-service:5001']
+
+  - job_name: 'rabbitmq'
+    static_configs:
+      - targets: ['rabbitmq:15692']
+    metrics_path: /metrics
+
+  - job_name: 'postgres'
+    static_configs:
+      - targets: ['postgres-exporter:9187']

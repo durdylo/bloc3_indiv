@@ -4,6 +4,7 @@ using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
 using MurImageService.Messages;
 using MurImageService.Models;
+using Prometheus;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 
@@ -18,6 +19,28 @@ public class RabbitMQConsumerService : BackgroundService
     private const string ExchangeName = "camera_events";
     private const string QueueName = "camera_status_changes";
     private const string RoutingKey = "camera.status.changed";
+    
+    // Métriques Prometheus
+    private static readonly Counter MessageReceivedCounter = Metrics
+        .CreateCounter("mur_image_messages_received_total", "Total number of messages received from RabbitMQ", 
+            new CounterConfiguration 
+            { 
+                LabelNames = new[] { "camera_code", "status" } 
+            });
+            
+    private static readonly Counter PositionUpdatesCounter = Metrics
+        .CreateCounter("mur_image_position_updates_total", "Total number of camera position updates performed");
+        
+    private static readonly Gauge ActivePositionsGauge = Metrics
+        .CreateGauge("mur_image_active_positions", "Number of active camera positions");
+        
+    private static readonly Histogram MessageProcessingTime = Metrics
+        .CreateHistogram("mur_image_message_processing_seconds", 
+            "Histogram of message processing durations",
+            new HistogramConfiguration
+            {
+                Buckets = Histogram.ExponentialBuckets(0.01, 2, 10)
+            });
 
     public RabbitMQConsumerService(
         IServiceProvider serviceProvider,
@@ -52,6 +75,9 @@ public class RabbitMQConsumerService : BackgroundService
             _channel.QueueBind(QueueName, ExchangeName, RoutingKey);
             
             _logger.LogInformation("Connexion établie avec RabbitMQ");
+            
+            // Initialiser la métrique des positions actives
+            InitializeActivePositionMetric();
         }
         catch (Exception ex)
         {
@@ -60,6 +86,26 @@ public class RabbitMQConsumerService : BackgroundService
         }
         
         return base.StartAsync(cancellationToken);
+    }
+
+    private void InitializeActivePositionMetric()
+    {
+        try
+        {
+            using var scope = _serviceProvider.CreateScope();
+            var dbContext = scope.ServiceProvider.GetRequiredService<MurImageDbContext>();
+            
+            var activePositionCount = dbContext.Positions
+                .Count(p => p.CodeCamera != null && p.EstActif);
+                
+            ActivePositionsGauge.Set(activePositionCount);
+            
+            _logger.LogInformation($"Métrique des positions actives initialisée: {activePositionCount} positions actives");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Erreur lors de l'initialisation de la métrique des positions actives");
+        }
     }
 
     protected override Task ExecuteAsync(CancellationToken stoppingToken)
@@ -72,16 +118,23 @@ public class RabbitMQConsumerService : BackgroundService
             {
                 try
                 {
-                    var body = args.Body.ToArray();
-                    var messageJson = Encoding.UTF8.GetString(body);
-                    var message = JsonSerializer.Deserialize<CameraStatusChangedMessage>(messageJson);
-                    
-                    if (message != null)
+                    using (MessageProcessingTime.NewTimer())
                     {
-                        await HandleCameraStatusChanged(message);
+                        var body = args.Body.ToArray();
+                        var messageJson = Encoding.UTF8.GetString(body);
+                        var message = JsonSerializer.Deserialize<CameraStatusChangedMessage>(messageJson);
+                        
+                        if (message != null)
+                        {
+                            MessageReceivedCounter
+                                .WithLabels(message.CameraCode, message.EstAfficher ? "activated" : "deactivated")
+                                .Inc();
+                                
+                            await HandleCameraStatusChanged(message);
+                        }
+                        
+                        _channel.BasicAck(args.DeliveryTag, false);
                     }
-                    
-                    _channel.BasicAck(args.DeliveryTag, false);
                 }
                 catch (Exception ex)
                 {
@@ -123,6 +176,20 @@ public class RabbitMQConsumerService : BackgroundService
             bool positionsUpdated = false;
             foreach (var position in positions)
             {
+                // Si l'état change
+                if (position.EstActif != message.EstAfficher)
+                {
+                    // Ajuster le compteur de positions actives
+                    if (message.EstAfficher)
+                    {
+                        ActivePositionsGauge.Inc();
+                    }
+                    else
+                    {
+                        ActivePositionsGauge.Dec();
+                    }
+                }
+                
                 position.EstActif = message.EstAfficher;
                 _logger.LogInformation($"Position {position.Id} du mur d'image {position.IdMurImage} mise à jour: EstActif = {position.EstActif}");
                 positionsUpdated = true;
@@ -130,6 +197,9 @@ public class RabbitMQConsumerService : BackgroundService
             
             if (positionsUpdated)
             {
+                // Incrémenter le compteur de mises à jour
+                PositionUpdatesCounter.Inc(positions.Count);
+                
                 // Sauvegarder les changements dans la base de données
                 await dbContext.SaveChangesAsync();
                 _logger.LogInformation($"Modifications enregistrées pour {positions.Count} positions");

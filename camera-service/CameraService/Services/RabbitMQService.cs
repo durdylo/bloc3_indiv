@@ -2,6 +2,7 @@
 using System.Text;
 using System.Text.Json;
 using CameraService.Messages;
+using Prometheus;
 using RabbitMQ.Client;
 
 namespace CameraService.Services;
@@ -13,6 +14,25 @@ public class RabbitMQService : IRabbitMQService, IDisposable
     private const string ExchangeName = "camera_events";
     private const string QueueName = "camera_status_changes";
     private const string RoutingKey = "camera.status.changed";
+    
+    // Définir des compteurs Prometheus
+    private static readonly Counter CameraStatusChangeCounter = Metrics
+        .CreateCounter("camera_status_changes_total", "Total number of camera status changes", 
+            new CounterConfiguration 
+            { 
+                LabelNames = new[] { "camera_code", "status" } 
+            });
+    
+    private static readonly Gauge ActiveCamerasGauge = Metrics
+        .CreateGauge("camera_active_count", "Number of active cameras");
+    
+    private static readonly Histogram MessageProcessingTime = Metrics
+        .CreateHistogram("camera_message_processing_seconds", 
+            "Histogram of camera message processing durations",
+            new HistogramConfiguration
+            {
+                Buckets = Histogram.ExponentialBuckets(0.01, 2, 10)
+            });
 
     public RabbitMQService(IConfiguration configuration, ILogger<RabbitMQService> logger)
     {
@@ -49,23 +69,39 @@ public class RabbitMQService : IRabbitMQService, IDisposable
     {
         try
         {
-            var message = new CameraStatusChangedMessage
+            using (MessageProcessingTime.NewTimer())
             {
-                CameraCode = cameraCode,
-                EstAfficher = estAfficher,
-                Timestamp = DateTime.UtcNow
-            };
-            
-            var messageBody = JsonSerializer.Serialize(message);
-            var body = Encoding.UTF8.GetBytes(messageBody);
-            
-            _channel.BasicPublish(
-                exchange: ExchangeName,
-                routingKey: RoutingKey,
-                basicProperties: null,
-                body: body);
-            
-            _logger.LogInformation($"Message publié: Caméra {cameraCode} est {(estAfficher ? "affichée" : "masquée")}");
+                var message = new CameraStatusChangedMessage
+                {
+                    CameraCode = cameraCode,
+                    EstAfficher = estAfficher,
+                    Timestamp = DateTime.UtcNow
+                };
+                
+                var messageBody = JsonSerializer.Serialize(message);
+                var body = Encoding.UTF8.GetBytes(messageBody);
+                
+                _channel.BasicPublish(
+                    exchange: ExchangeName,
+                    routingKey: RoutingKey,
+                    basicProperties: null,
+                    body: body);
+                
+                // Incrémenter le compteur de changements d'état
+                CameraStatusChangeCounter.WithLabels(cameraCode, estAfficher ? "activated" : "deactivated").Inc();
+                
+                // Mettre à jour la jauge des caméras actives
+                if (estAfficher)
+                {
+                    ActiveCamerasGauge.Inc();
+                }
+                else
+                {
+                    ActiveCamerasGauge.Dec();
+                }
+                
+                _logger.LogInformation($"Message publié: Caméra {cameraCode} est {(estAfficher ? "affichée" : "masquée")}");
+            }
             
             return Task.CompletedTask;
         }

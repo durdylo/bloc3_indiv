@@ -33,6 +33,9 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    ports:
+      - "15672:15672"  # Interface d'administration
+      - "5672:5672"    # Port AMQP
     networks:
       - camera-network
 
@@ -46,7 +49,6 @@ services:
       - ASPNETCORE_ENVIRONMENT=Production
     ports:
       - "5002:5002"
-    image : ${REPO_ADRESSE}poc-cameras
     depends_on:
       postgres:
         condition: service_healthy
@@ -65,7 +67,6 @@ services:
       - ASPNETCORE_ENVIRONMENT=Production
     ports:
       - "5001:5001"
-    image : ${REPO_ADRESSE}poc-murimages
     depends_on:
       postgres:
         condition: service_healthy
@@ -73,6 +74,7 @@ services:
         condition: service_healthy
     networks:
       - camera-network
+
   # Frontend Angular
   frontend:
     build:
@@ -81,12 +83,67 @@ services:
     container_name: frontend
     ports:
       - "80:80"
-    image : ${REPO_ADRESSE}poc-frontend
     depends_on:
       - camera-service
       - mur-image-service
     networks:
       - camera-network
+      
+  # PostgreSQL Exporter - Collecte des métriques PostgreSQL
+  postgres-exporter:
+    image: prometheuscommunity/postgres-exporter:latest
+    container_name: postgres-exporter
+    ports:
+      - "9187:9187"
+    environment:
+      - DATA_SOURCE_NAME=postgresql://postgres:postgres@postgres:5432/postgres?sslmode=disable
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - camera-network
+    restart: unless-stopped
+      
+  # Prometheus - Système de surveillance et collecte de métriques
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus:/etc/prometheus
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--web.enable-lifecycle'
+    depends_on:
+      - camera-service
+      - mur-image-service
+    networks:
+      - camera-network
+    restart: unless-stopped
+
+  # Grafana - Visualisation des métriques
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning
+      - grafana-data:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+    depends_on:
+      - prometheus
+    networks:
+      - camera-network
+    restart: unless-stopped
 
 networks:
   camera-network:
@@ -95,3 +152,5 @@ networks:
 volumes:
   postgres-data:
   rabbitmq-data:
+  prometheus-data:
+  grafana-data:

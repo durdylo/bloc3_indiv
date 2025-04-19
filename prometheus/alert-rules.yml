@@ -1,0 +1,56 @@
+groups:
+  - name: camera-system-alerts
+    rules:
+      - alert: ServiceDown
+        expr: up == 0
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "Service down - {{ $labels.job }}"
+          description: "Le service {{ $labels.job }} est inaccessible depuis au moins 30 secondes."
+
+      - alert: HighCPUUsage
+        expr: rate(process_cpu_seconds_total[1m]) * 100 > 70
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Utilisation CPU élevée - {{ $labels.job }}"
+          description: "Le service {{ $labels.job }} utilise plus de 70% de CPU depuis 2 minutes."
+
+      - alert: HighMemoryUsage
+        expr: process_resident_memory_bytes / 1024 / 1024 > 300
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Utilisation mémoire élevée - {{ $labels.job }}"
+          description: "Le service {{ $labels.job }} utilise plus de 300MB de mémoire depuis 2 minutes."
+
+      - alert: SlowResponseTime
+        expr: http_request_duration_seconds_sum / http_request_duration_seconds_count > 1
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Temps de réponse lents - {{ $labels.job }}"
+          description: "Le temps de réponse moyen pour {{ $labels.job }} est supérieur à 1 seconde depuis 2 minutes."
+
+      - alert: HighErrorRate
+        expr: rate(http_requests_total{status=~"5.."}[1m]) / rate(http_requests_total[1m]) * 100 > 5
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Taux d'erreur élevé - {{ $labels.job }}"
+          description: "Le taux d'erreur HTTP 5xx pour {{ $labels.job }} est supérieur à 5% depuis 2 minutes."
+
+      - alert: DatabaseConnectionsHigh
+        expr: pg_stat_database_numbackends / pg_settings_max_connections * 100 > 80
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Nombre de connexions PostgreSQL élevé"
+          description: "Plus de 80% des connexions PostgreSQL disponibles sont utilisées depuis 5 minutes."

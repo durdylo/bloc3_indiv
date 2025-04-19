@@ -1,6 +1,7 @@
 using CameraService.Models;
 using CameraService.Services;
 using Microsoft.EntityFrameworkCore;
+using Prometheus;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,6 +30,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+// Activer les métriques Prometheus
+app.UseMetricServer();
+app.UseHttpMetrics();
+
 // Appliquer les migrations automatiquement au démarrage
 using (var scope = app.Services.CreateScope())
 {
