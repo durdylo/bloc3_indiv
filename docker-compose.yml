@@ -8,9 +8,10 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_MULTIPLE_DATABASES=camera_db,mur_image_db
+      - POSTGRES_MULTIPLE_DATABASES=camera_db,mur_image_db,sonar
     volumes:
       - ./init-multiple-dbs.sh:/docker-entrypoint-initdb.d/init-multiple-dbs.sh
+      - postgres-data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
     healthcheck:
@@ -145,6 +146,24 @@ services:
       - camera-network
     restart: unless-stopped
 
+  sonarqube:
+    image: sonarqube:community
+    container_name: sonarqube
+    ports:
+      - "9000:9000"
+    environment:
+      - SONAR_JDBC_URL=jdbc:postgresql://postgres:5432/sonar
+      - SONAR_JDBC_USERNAME=postgres
+      - SONAR_JDBC_PASSWORD=postgres
+    volumes:
+      - sonarqube-data:/opt/sonarqube/data
+      - sonarqube-extensions:/opt/sonarqube/extensions
+      - sonarqube-logs:/opt/sonarqube/logs
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - camera-network
 networks:
   camera-network:
     driver: bridge
@@ -154,3 +173,6 @@ volumes:
   rabbitmq-data:
   prometheus-data:
   grafana-data:
+  sonarqube-data:
+  sonarqube-extensions:
+  sonarqube-logs:

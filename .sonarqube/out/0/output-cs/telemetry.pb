@@ -1,0 +1,1 @@
+€Rj/Users/loic/Documents/MAALSI/Poc_indiv/microservices-app/camera-service/CameraService/CameraService.csproj¢net8.0òCSharp12

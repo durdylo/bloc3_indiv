@@ -1,0 +1,6 @@
+projectKey=durdylo_bloc3_indiv_3457086b-73f6-4218-9de6-a0bad170bceb
+serverUrl=http://localhost:9000
+serverVersion=25.4.0.105899
+dashboardUrl=http://localhost:9000/dashboard?id=durdylo_bloc3_indiv_3457086b-73f6-4218-9de6-a0bad170bceb
+ceTaskId=5ed0693a-a6b4-48e4-87cc-984ffa600462
+ceTaskUrl=http://localhost:9000/api/ce/task?id=5ed0693a-a6b4-48e4-87cc-984ffa600462

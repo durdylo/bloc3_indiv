@@ -1,0 +1,958 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "Compilateur Microsoft (R) Visual C#",
+        "version": "4.9.0.0",
+        "fileVersion": "4.9.0-3.24067.18 (4fc721bb)",
+        "semanticVersion": "4.9.0",
+        "language": "fr-FR"
+      },
+      "results": [
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Le propriété 'Nom' non-nullable doit contenir une valeur non-null lors de la fermeture du constructeur. Envisagez de déclarer le propriété comme nullable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///Users/loic/Documents/MAALSI/Poc_indiv/microservices-app/mur-image-service/MurImageService/Models/MurImage.cs",
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 23,
+                  "endLine": 13,
+                  "endColumn": 26
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///Users/loic/Documents/MAALSI/Poc_indiv/microservices-app/mur-image-service/MurImageService/Models/MurImage.cs",
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 23,
+                  "endLine": 13,
+                  "endColumn": 26
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Le propriété 'Positions' non-nullable doit contenir une valeur non-null lors de la fermeture du constructeur. Envisagez de déclarer le propriété comme nullable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///Users/loic/Documents/MAALSI/Poc_indiv/microservices-app/mur-image-service/MurImageService/Models/MurImage.cs",
+                "region": {
+                  "startLine": 15,
+                  "startColumn": 38,
+                  "endLine": 15,
+                  "endColumn": 47
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///Users/loic/Documents/MAALSI/Poc_indiv/microservices-app/mur-image-service/MurImageService/Models/MurImage.cs",
+                "region": {
+                  "startLine": 15,
+                  "startColumn": 38,
+                  "endLine": 15,
+                  "endColumn": 47
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Le propriété 'CameraCode' non-nullable doit contenir une valeur non-null lors de la fermeture du constructeur. Envisagez de déclarer le propriété comme nullable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///Users/loic/Documents/MAALSI/Poc_indiv/microservices-app/mur-image-service/MurImageService/Messages/CameraMessages.cs",
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 23,
+                  "endLine": 7,
+                  "endColumn": 33
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///Users/loic/Documents/MAALSI/Poc_indiv/microservices-app/mur-image-service/MurImageService/Messages/CameraMessages.cs",
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 23,
+                  "endLine": 7,
+                  "endColumn": 33
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Le propriété 'MurImages' non-nullable doit contenir une valeur non-null lors de la fermeture du constructeur. Envisagez de déclarer le propriété comme nullable.",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///Users/loic/Documents/MAALSI/Poc_indiv/microservices-app/mur-image-service/MurImageService/Models/MurImageDbContext.cs",
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 16,
+                  "endLine": 7,
+                  "endColumn": 33
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///Users/loic/Documents/MAALSI/Poc_indiv/microservices-app/mur-image-service/MurImageService/Models/MurImageDbContext.cs",
+                "region": {
+                  "startLine": 12,
+                  "startColumn": 32,
+                  "endLine": 12,
+                  "endColumn": 41
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Le propriété 'Positions' non-nullable doit contenir une valeur non-null lors de la fermeture du constructeur. Envisagez de déclarer le propriété comme nullable.",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///Users/loic/Documents/MAALSI/Poc_indiv/microservices-app/mur-image-service/MurImageService/Models/MurImageDbContext.cs",
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 16,
+                  "endLine": 7,
+                  "endColumn": 33
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///Users/loic/Documents/MAALSI/Poc_indiv/microservices-app/mur-image-service/MurImageService/Models/MurImageDbContext.cs",
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 32,
+                  "endLine": 13,
+                  "endColumn": 41
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Le champ '_connection' non-nullable doit contenir une valeur non-null lors de la fermeture du constructeur. Envisagez de déclarer le champ comme nullable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///Users/loic/Documents/MAALSI/Poc_indiv/microservices-app/mur-image-service/MurImageService/Services/RabbitMQConsumerService.cs",
+                "region": {
+                  "startLine": 45,
+                  "startColumn": 12,
+                  "endLine": 45,
+                  "endColumn": 35
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///Users/loic/Documents/MAALSI/Poc_indiv/microservices-app/mur-image-service/MurImageService/Services/RabbitMQConsumerService.cs",
+                "region": {
+                  "startLine": 14,
+                  "startColumn": 25,
+                  "endLine": 14,
+                  "endColumn": 36
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Le champ '_channel' non-nullable doit contenir une valeur non-null lors de la fermeture du constructeur. Envisagez de déclarer le champ comme nullable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///Users/loic/Documents/MAALSI/Poc_indiv/microservices-app/mur-image-service/MurImageService/Services/RabbitMQConsumerService.cs",
+                "region": {
+                  "startLine": 45,
+                  "startColumn": 12,
+                  "endLine": 45,
+                  "endColumn": 35
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///Users/loic/Documents/MAALSI/Poc_indiv/microservices-app/mur-image-service/MurImageService/Services/RabbitMQConsumerService.cs",
+                "region": {
+                  "startLine": 15,
+                  "startColumn": 20,
+                  "endLine": 15,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2068",
+          "level": "warning",
+          "message": "\"password\" detected here, make sure this is not a hard-coded credential.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///Users/loic/Documents/MAALSI/Poc_indiv/microservices-app/mur-image-service/MurImageService/appsettings.json",
+                "region": {
+                  "startLine": 3,
+                  "startColumn": 27,
+                  "endLine": 3,
+                  "endColumn": 98
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2068",
+          "level": "warning",
+          "message": "\"password\" detected here, make sure this is not a hard-coded credential.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///Users/loic/Documents/MAALSI/Poc_indiv/microservices-app/mur-image-service/MurImageService/appsettings.json",
+                "region": {
+                  "startLine": 8,
+                  "startColumn": 19,
+                  "endLine": 8,
+                  "endColumn": 24
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2139",
+          "level": "warning",
+          "message": "Either log this exception and handle it, or rethrow it with some contextual information.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///Users/loic/Documents/MAALSI/Poc_indiv/microservices-app/mur-image-service/MurImageService/Services/RabbitMQConsumerService.cs",
+                "region": {
+                  "startLine": 82,
+                  "startColumn": 26,
+                  "endLine": 82,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///Users/loic/Documents/MAALSI/Poc_indiv/microservices-app/mur-image-service/MurImageService/Services/RabbitMQConsumerService.cs",
+                "region": {
+                  "startLine": 84,
+                  "startColumn": 13,
+                  "endLine": 84,
+                  "endColumn": 75
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///Users/loic/Documents/MAALSI/Poc_indiv/microservices-app/mur-image-service/MurImageService/Services/RabbitMQConsumerService.cs",
+                "region": {
+                  "startLine": 85,
+                  "startColumn": 13,
+                  "endLine": 85,
+                  "endColumn": 19
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": "Logging statement.",
+              "1": "Thrown exception."
+            }
+          }
+        },
+        {
+          "ruleId": "S2629",
+          "level": "warning",
+          "message": "Don't use string interpolation in logging message templates.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///Users/loic/Documents/MAALSI/Poc_indiv/microservices-app/mur-image-service/MurImageService/Services/RabbitMQConsumerService.cs",
+                "region": {
+                  "startLine": 103,
+                  "startColumn": 36,
+                  "endLine": 103,
+                  "endColumn": 122
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA2254",
+          "level": "note",
+          "message": "Le modèle de message de journalisation ne doit pas varier entre les appels à 'LoggerExtensions.LogInformation(ILogger, string?, params object?[])'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///Users/loic/Documents/MAALSI/Poc_indiv/microservices-app/mur-image-service/MurImageService/Services/RabbitMQConsumerService.cs",
+                "region": {
+                  "startLine": 103,
+                  "startColumn": 36,
+                  "endLine": 103,
+                  "endColumn": 122
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S6964",
+          "level": "warning",
+          "message": "Value type property used as input in a controller action should be nullable, required or annotated with the JsonRequiredAttribute to avoid under-posting.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///Users/loic/Documents/MAALSI/Poc_indiv/microservices-app/mur-image-service/MurImageService/Models/MurImage.cs",
+                "region": {
+                  "startLine": 9,
+                  "startColumn": 20,
+                  "endLine": 9,
+                  "endColumn": 22
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S6964",
+          "level": "warning",
+          "message": "Value type property used as input in a controller action should be nullable, required or annotated with the JsonRequiredAttribute to avoid under-posting.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///Users/loic/Documents/MAALSI/Poc_indiv/microservices-app/mur-image-service/MurImageService/Models/Position.cs",
+                "region": {
+                  "startLine": 10,
+                  "startColumn": 20,
+                  "endLine": 10,
+                  "endColumn": 22
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S6964",
+          "level": "warning",
+          "message": "Value type property used as input in a controller action should be nullable, required or annotated with the JsonRequiredAttribute to avoid under-posting.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///Users/loic/Documents/MAALSI/Poc_indiv/microservices-app/mur-image-service/MurImageService/Models/Position.cs",
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 20,
+                  "endLine": 13,
+                  "endColumn": 30
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1816",
+          "level": "note",
+          "message": "Changez RabbitMQConsumerService.Dispose() pour appeler GC.SuppressFinalize(object). Cette opération empêche les types dérivés qui introduisent un finaliseur d'avoir à réimplémenter 'IDisposable' pour l'appeler.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///Users/loic/Documents/MAALSI/Poc_indiv/microservices-app/mur-image-service/MurImageService/Services/RabbitMQConsumerService.cs",
+                "region": {
+                  "startLine": 224,
+                  "startColumn": 26,
+                  "endLine": 224,
+                  "endColumn": 33
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S5122",
+          "level": "warning",
+          "message": "Make sure this permissive CORS policy is safe here.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///Users/loic/Documents/MAALSI/Poc_indiv/microservices-app/mur-image-service/MurImageService/Program.cs",
+                "region": {
+                  "startLine": 25,
+                  "startColumn": 20,
+                  "endLine": 25,
+                  "endColumn": 44
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2629",
+          "level": "warning",
+          "message": "Don't use string interpolation in logging message templates.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///Users/loic/Documents/MAALSI/Poc_indiv/microservices-app/mur-image-service/MurImageService/Services/RabbitMQConsumerService.cs",
+                "region": {
+                  "startLine": 161,
+                  "startColumn": 32,
+                  "endLine": 161,
+                  "endColumn": 151
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2629",
+          "level": "warning",
+          "message": "Don't use string interpolation in logging message templates.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///Users/loic/Documents/MAALSI/Poc_indiv/microservices-app/mur-image-service/MurImageService/Services/RabbitMQConsumerService.cs",
+                "region": {
+                  "startLine": 173,
+                  "startColumn": 36,
+                  "endLine": 173,
+                  "endColumn": 112
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2629",
+          "level": "warning",
+          "message": "Don't use string interpolation in logging message templates.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///Users/loic/Documents/MAALSI/Poc_indiv/microservices-app/mur-image-service/MurImageService/Services/RabbitMQConsumerService.cs",
+                "region": {
+                  "startLine": 194,
+                  "startColumn": 40,
+                  "endLine": 194,
+                  "endColumn": 146
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2629",
+          "level": "warning",
+          "message": "Don't use string interpolation in logging message templates.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///Users/loic/Documents/MAALSI/Poc_indiv/microservices-app/mur-image-service/MurImageService/Services/RabbitMQConsumerService.cs",
+                "region": {
+                  "startLine": 205,
+                  "startColumn": 40,
+                  "endLine": 205,
+                  "endColumn": 102
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2629",
+          "level": "warning",
+          "message": "Don't use string interpolation in logging message templates.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///Users/loic/Documents/MAALSI/Poc_indiv/microservices-app/mur-image-service/MurImageService/Services/RabbitMQConsumerService.cs",
+                "region": {
+                  "startLine": 210,
+                  "startColumn": 34,
+                  "endLine": 210,
+                  "endColumn": 109
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA2254",
+          "level": "note",
+          "message": "Le modèle de message de journalisation ne doit pas varier entre les appels à 'LoggerExtensions.LogInformation(ILogger, string?, params object?[])'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///Users/loic/Documents/MAALSI/Poc_indiv/microservices-app/mur-image-service/MurImageService/Services/RabbitMQConsumerService.cs",
+                "region": {
+                  "startLine": 161,
+                  "startColumn": 32,
+                  "endLine": 161,
+                  "endColumn": 151
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA2254",
+          "level": "note",
+          "message": "Le modèle de message de journalisation ne doit pas varier entre les appels à 'LoggerExtensions.LogInformation(ILogger, string?, params object?[])'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///Users/loic/Documents/MAALSI/Poc_indiv/microservices-app/mur-image-service/MurImageService/Services/RabbitMQConsumerService.cs",
+                "region": {
+                  "startLine": 173,
+                  "startColumn": 36,
+                  "endLine": 173,
+                  "endColumn": 112
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA2254",
+          "level": "note",
+          "message": "Le modèle de message de journalisation ne doit pas varier entre les appels à 'LoggerExtensions.LogInformation(ILogger, string?, params object?[])'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///Users/loic/Documents/MAALSI/Poc_indiv/microservices-app/mur-image-service/MurImageService/Services/RabbitMQConsumerService.cs",
+                "region": {
+                  "startLine": 194,
+                  "startColumn": 40,
+                  "endLine": 194,
+                  "endColumn": 146
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA2254",
+          "level": "note",
+          "message": "Le modèle de message de journalisation ne doit pas varier entre les appels à 'LoggerExtensions.LogInformation(ILogger, string?, params object?[])'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///Users/loic/Documents/MAALSI/Poc_indiv/microservices-app/mur-image-service/MurImageService/Services/RabbitMQConsumerService.cs",
+                "region": {
+                  "startLine": 205,
+                  "startColumn": 40,
+                  "endLine": 205,
+                  "endColumn": 102
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA2254",
+          "level": "note",
+          "message": "Le modèle de message de journalisation ne doit pas varier entre les appels à 'LoggerExtensions.LogError(ILogger, Exception?, string?, params object?[])'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///Users/loic/Documents/MAALSI/Poc_indiv/microservices-app/mur-image-service/MurImageService/Services/RabbitMQConsumerService.cs",
+                "region": {
+                  "startLine": 210,
+                  "startColumn": 34,
+                  "endLine": 210,
+                  "endColumn": 109
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S6966",
+          "level": "warning",
+          "message": "Await MigrateAsync instead.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///Users/loic/Documents/MAALSI/Poc_indiv/microservices-app/mur-image-service/MurImageService/Program.cs",
+                "region": {
+                  "startLine": 54,
+                  "startColumn": 13,
+                  "endLine": 54,
+                  "endColumn": 41
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S6966",
+          "level": "warning",
+          "message": "Await AnyAsync instead.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///Users/loic/Documents/MAALSI/Poc_indiv/microservices-app/mur-image-service/MurImageService/Program.cs",
+                "region": {
+                  "startLine": 57,
+                  "startColumn": 18,
+                  "endLine": 57,
+                  "endColumn": 43
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S6966",
+          "level": "warning",
+          "message": "Await SaveChangesAsync instead.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///Users/loic/Documents/MAALSI/Poc_indiv/microservices-app/mur-image-service/MurImageService/Program.cs",
+                "region": {
+                  "startLine": 65,
+                  "startColumn": 17,
+                  "endLine": 65,
+                  "endColumn": 40
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S6966",
+          "level": "warning",
+          "message": "Await SaveChangesAsync instead.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///Users/loic/Documents/MAALSI/Poc_indiv/microservices-app/mur-image-service/MurImageService/Program.cs",
+                "region": {
+                  "startLine": 98,
+                  "startColumn": 17,
+                  "endLine": 98,
+                  "endColumn": 40
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S6966",
+          "level": "warning",
+          "message": "Await RunAsync instead.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///Users/loic/Documents/MAALSI/Poc_indiv/microservices-app/mur-image-service/MurImageService/Program.cs",
+                "region": {
+                  "startLine": 131,
+                  "startColumn": 1,
+                  "endLine": 131,
+                  "endColumn": 10
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        }
+      ],
+      "rules": {
+        "CA1816": {
+          "id": "CA1816",
+          "shortDescription": "Les méthodes Dispose doivent appeler SuppressFinalize",
+          "fullDescription": "Une méthode qui est une implémentation de Dispose n'appelle pas GC.SuppressFinalize. Ou bien, une méthode qui n'est pas une implémentation de Dispose appelle GC.SuppressFinalize. Ou encore, une méthode appelle GC.SuppressFinalize et passe autre chose que this (Me en Visual Basic).",
+          "defaultLevel": "note",
+          "helpUri": "https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca1816",
+          "properties": {
+            "category": "Usage",
+            "isEnabledByDefault": true,
+            "tags": [
+              "PortedFromFxCop",
+              "Telemetry",
+              "EnabledRuleInAggressiveMode"
+            ]
+          }
+        },
+        "CA2254": {
+          "id": "CA2254",
+          "shortDescription": "Le modèle doit être une expression statique.",
+          "fullDescription": "Le modèle de message de journalisation ne doit pas varier entre les appels.",
+          "defaultLevel": "note",
+          "helpUri": "https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca2254",
+          "properties": {
+            "category": "Usage",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Telemetry",
+              "EnabledRuleInAggressiveMode"
+            ]
+          }
+        },
+        "CS8618": {
+          "id": "CS8618",
+          "shortDescription": "Un champ non-nullable doit contenir une valeur non-null lors de la fermeture du constructeur. Envisagez de déclarer le champ comme nullable.",
+          "defaultLevel": "warning",
+          "helpUri": "https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS8618)",
+          "properties": {
+            "category": "Compiler",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Compiler",
+              "Telemetry"
+            ]
+          }
+        },
+        "S2068": {
+          "id": "S2068",
+          "shortDescription": "Hard-coded credentials are security-sensitive",
+          "fullDescription": "Because it is easy to extract strings from an application source code or binary, credentials should not be hard-coded. This is particularly true for applications that are distributed or that are open-source.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-2068",
+          "properties": {
+            "category": "Blocker Security Hotspot",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S2139": {
+          "id": "S2139",
+          "shortDescription": "Exceptions should be either logged or rethrown but not both",
+          "fullDescription": "When an exception is logged and rethrown, the upstream code may not be aware that the exception has already been logged. As a result, the same exception gets logged multiple times, making it difficult to identify the root cause of the issue. This can be particularly problematic in multi-threaded applications where messages from other threads can be interwoven with the repeated log entries.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-2139",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S2629": {
+          "id": "S2629",
+          "shortDescription": "Logging templates should be constant",
+          "fullDescription": "Logging arguments should not require evaluation in order to avoid unnecessary performance overhead. When passing concatenated strings or string interpolations directly into a logging method, the evaluation of these expressions occurs every time the logging method is called, regardless of the log level. This can lead to inefficient code execution and increased resource consumption.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-2629",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S5122": {
+          "id": "S5122",
+          "shortDescription": "Having a permissive Cross-Origin Resource Sharing policy is security-sensitive",
+          "fullDescription": "Having a permissive Cross-Origin Resource Sharing policy is security-sensitive. It has led in the past to the following vulnerabilities:",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-5122",
+          "properties": {
+            "category": "Minor Security Hotspot",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S6964": {
+          "id": "S6964",
+          "shortDescription": "Value type property used as input in a controller action should be nullable, required or annotated with the JsonRequiredAttribute to avoid under-posting.",
+          "fullDescription": "\"Under-posting\" refers to a situation where a client sends less data than expected to the server during an HTTP request, for example when the client omits some properties from the request body that the server expects to receive.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-6964",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S6966": {
+          "id": "S6966",
+          "shortDescription": "Awaitable method should be used",
+          "fullDescription": "In an async method, any blocking operations should be avoided.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-6966",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "TestSourceScope",
+              "SonarWay"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}
